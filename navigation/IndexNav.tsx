@@ -8,7 +8,7 @@ import axiosClient from '../api/axiosClient'
 import Login from '../screens/login/Login'
 import AuthContext from '../contexts/AuthContext'
 import Loading from '../components/loading/Loading'
-import NewsScreen from '../screens/newsScreen/NewsScreen'
+import NewsScreenNav from './NewsScreenNav'
 
 const Drawer = createDrawerNavigator()
 
@@ -17,10 +17,11 @@ const IndexNav = (): ReactElement => {
   const authContext = useContext(AuthContext)
 
   useEffect(() => {
+    console.log('is is routes')
     axiosClient.get('/sources')
       .then(response => setRoutes(response.data.sources))
       .catch(err => console.log(err, 'error'))
-  }, [])
+  }, [authContext])
 
   const MainDrawer = () => {
     return (!routes ?
@@ -32,7 +33,7 @@ const IndexNav = (): ReactElement => {
               key={routeInfo.id}
               options={{ drawerLabel: routeInfo.name }}
               name={routeInfo.id}
-              component={NewsScreen}
+              component={NewsScreenNav}
             />
           )}
         </Drawer.Navigator>

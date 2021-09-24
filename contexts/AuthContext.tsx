@@ -15,6 +15,7 @@ export const AuthContextProvider = ({ children }: { children: ReactChild }): Rea
   const changeAuthKey = async (newAuthKey: string) => {
     await AsyncStorage.setItem('API_Key', newAuthKey)
     setAuthKey(newAuthKey)
+    setIsLoading(false)
   }
 
   useEffect(() => {
